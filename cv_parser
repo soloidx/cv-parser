@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+# -*- mode: python -*-
+
+import argparse
+import logging
+import sys
+import yaml
+
+from renderers.web import render
+
+
+def create_arg_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description='Create CV files from a yaml file')
+
+    parser.add_argument('filename', type=str, help='Name of the yaml source')
+
+    return parser
+
+
+def cv_parse_file(filename: str):
+    try:
+        with open(filename) as f:
+            cv_stucture = yaml.load(f, Loader=yaml.Loader)
+            render(cv_stucture)
+
+    except FileNotFoundError:
+        logging.error('The filename %s does not exist', filename)
+        sys.exit(-1)
+
+
+def main():
+    parser = create_arg_parser()
+    args = parser.parse_args()
+
+    filename = args.filename
+    cv_parse_file(filename)
+
+
+if __name__ == '__main__':
+    main()
