@@ -1,0 +1,15 @@
+{% if cv_data.references %}
+<section class="references">
+    <h2 class="section-titile"> References: </h2>
+    <ul class="reference-list">
+        {% for reference in cv_data.references %}
+        <li>
+            {% if reference.name %} <div class="name">{{ reference.name }}</div>  {% endif %}
+            {% if reference.title %} <div class="title">{{ reference.title }}</div>  {% endif %}
+            {% if reference.phone %} <div class="phone">{{ reference.phone }}</div>  {% endif %}
+            {% if reference.email %} <div class="email">{{ reference.email }}</div>  {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

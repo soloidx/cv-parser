@@ -1,0 +1,35 @@
+{% macro course(course_data) -%}
+<li class="course-item">
+    {% if course_data.date %}<div class="date">{{ course_data.date }}</div>{% endif %}
+    {% if course_data.title %}<div class="title">{{ course_data.title }}</div>{% endif %}
+    {% if course_data.institution %}<div class="institution">{{ course_data.institution }}</div>{% endif %}
+    {% if course_data.location %}<div class="location">{{ course_data.location }}</div>{% endif %}
+    {% if course_data.website %}<div class="website">{{ course_data.website }}</div>{% endif %}
+</li>
+{%- endmacro %}
+
+{% if cv_data.core_formation %}
+<section class="core_formation">
+    <h2 class="section-titile"> Education </h2>
+    <ul class="education-list">
+        {% for education_item in cv_data.core_formation %}
+        {% if education_item.course %}
+        {{ course(education_item.course) }}
+        {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+{% if cv_data.complementary_formation %}
+<section class="core_formation">
+    <h2 class="section-titile"> Complementary formation </h2>
+    <ul class="education-list">
+        {% for education_item in cv_data.complementary_formation %}
+        {% if education_item.course %}
+        {{ course(education_item.course) }}
+        {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

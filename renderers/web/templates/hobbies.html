@@ -1,0 +1,12 @@
+{% if cv_data.hobbies %}
+<section class="hobbies">
+    <h2 class="section-titile"> Hobbies: </h2>
+    <ul class="hobby-list">
+        {% for hobby in cv_data.hobbies %}
+        {% if hobby %}
+        <li>{{hobby.name}}: <span class="description">{{hobby.description}}</span></li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

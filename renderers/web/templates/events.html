@@ -1,0 +1,10 @@
+{% if cv_data.events %}
+<section class="events">
+    <h2 class="section-titile"> Events: </h2>
+    <ul class="event-list">
+        {% for event in cv_data.events %}
+        <li>{{event}}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

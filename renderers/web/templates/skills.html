@@ -1,0 +1,23 @@
+{% macro skill(skill_data) -%}
+<li class="skill-item">
+    {% if skill_data.name %}<div class="name">{{ skill_data.name }}</div>{% endif %}
+    {% if skill_data.list %}
+    <ul class="subitem">
+    {% for elem in skill_data.list %}
+        <li>{{ elem }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{%- endmacro %}
+
+{% if cv_data.skills %}
+<section class="skills">
+    <h2 class="section-titile"> Skills </h2>
+    <ul class="skill-list">
+        {% for skill_item in cv_data.skills %}
+        {{ skill(skill_item) }}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

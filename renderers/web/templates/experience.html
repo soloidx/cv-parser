@@ -1,0 +1,42 @@
+{% macro workpost(work_data) -%}
+<li class="work">
+    {% if work_data.date %}<div class="date"> {{ work_data.date }} </div>{% endif %}
+    {% if work_data.job_title %}<div class="title"> {{ work_data.job_title }} </div>{% endif %}
+    {% if work_data.place %}<div class="place"> {{ work_data.place }} </div>{% endif %}
+    {% if work_data.website %}<div class="website"> {{ work_data.website }} </div>{% endif %}
+    {% if work_data.website %} <a class="website" href="{{ work_data.website }}">{{ work_data.website }}</a>{% endif %}
+    {% if work_data.projects %}
+    <div class="project">
+        <div class="title">Projects:</div>
+        <ul class="project-list">
+        {% for project in work_data.projects %}
+        {{ workproject(project.project) }}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</li>
+{%- endmacro %}
+
+{% macro workproject(project_data) -%}
+<li class="project-item">
+    {% if project_data.title %}<div class="title">{{ project_data.title }}</div>{% endif %}
+    {% if project_data.description %}<div class="description">{{ project_data.description }}</div>{% endif %}
+    {% if project_data.platform %}<div class="platform">{{ project_data.platform }}</div>{% endif %}
+    {% if project_data.url %} <a class="url" href="{{ project_data.url }}">{{ project_data.url }}</a>{% endif %}
+</li>
+{%- endmacro %}
+
+
+{% if cv_data.professional_experience %}
+<section class="experience">
+    <h2 class="section-titile"> Professional Experience </h2>
+    <ul class="experience-list">
+        {% for work_item in cv_data.professional_experience %}
+        {% if work_item.work %}
+        {{ workpost(work_item.work) }}
+        {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
