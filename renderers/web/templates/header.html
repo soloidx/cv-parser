@@ -1,0 +1,16 @@
+<header>
+    {% if cv_data.personal_info.picture %}
+    <div class="photo">
+        <img alt="Resume picture" src="images/{{ cv_data.personal_info.picture }}"/>
+    </div>
+    {% endif %}
+    <h1>{{ cv_data.personal_info.first_name }} {{ cv_data.personal_info.last_name }}</h1>
+    {% if cv_data.personal_info.title %}<h3>{{ cv_data.personal_info.title }}</h3>{% endif %}
+    <div class="headline">{{ cv_data.personal_info.headline }}</div>
+    <address>
+        {% if cv_data.personal_info.webpage %}<div class="webpage"><a href="{{ cv_data.personal_info.webpage }}">{{ cv_data.personal_info.webpage }}</a></div>{% endif %}
+        {% if cv_data.personal_info.email %}<div class="email"><a href="mailto:{{ cv_data.personal_info.email }}">{{ cv_data.personal_info.email }}</a></div>{% endif %}
+        {% if cv_data.personal_info.phone %}<div class="phone"><a href="tel:{{ cv_data.personal_info.phone }}">{{ cv_data.personal_info.phone }}</a></div>{% endif %}
+        {% if cv_data.personal_info.address %}<div class="address">{{ cv_data.personal_info.address }}</div>{% endif %}
+    </address>
+</header>
