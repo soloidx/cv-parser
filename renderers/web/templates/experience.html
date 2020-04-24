@@ -22,7 +22,7 @@
 <li class="project-item">
     {% if project_data.title %}<div class="title">{{ project_data.title }}</div>{% endif %}
     {% if project_data.description %}<div class="description">{{ project_data.description }}</div>{% endif %}
-    {% if project_data.platform %}<div class="platform">{{ project_data.platform }}</div>{% endif %}
+    {% if project_data.platform %}<div class="platform">Platform: {{ project_data.platform }}</div>{% endif %}
     {% if project_data.url %} <a class="url" href="{{ project_data.url }}">{{ project_data.url }}</a>{% endif %}
 </li>
 {%- endmacro %}
@@ -30,7 +30,7 @@
 
 {% if cv_data.professional_experience %}
 <section class="experience">
-    <h2 class="section-titile"> Professional Experience </h2>
+    <h2 class="section-title"> Professional Experience </h2>
     <ul class="experience-list">
         {% for work_item in cv_data.professional_experience %}
         {% if work_item.work %}

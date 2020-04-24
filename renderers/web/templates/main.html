@@ -9,21 +9,30 @@
   <meta name="description" content="My awesome CV">
   <meta name="{{ cv_data.personal_info.first_name }} {{ cv_data.personal_info.last_name }}" content="SitePoint">
 
+  <link href="css/normalize.css" rel="stylesheet"/>
   <link href="css/main.css" rel="stylesheet"/>
-
-  <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
 
 </head>
 
 <body>
     {% include 'header.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'experience.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'education.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'languages.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'skills.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'hobbies.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'events.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'references.html' %}
+    <div class="divider div-transparent"></div>
     {% include 'footer.html' %}
+    <script src="js/main.js"></script>
 </body>
 </html>

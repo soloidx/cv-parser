@@ -10,7 +10,7 @@
 
 {% if cv_data.core_formation %}
 <section class="core_formation">
-    <h2 class="section-titile"> Education </h2>
+    <h2 class="section-title"> Education </h2>
     <ul class="education-list">
         {% for education_item in cv_data.core_formation %}
         {% if education_item.course %}
@@ -22,8 +22,8 @@
 {% endif %}
 
 {% if cv_data.complementary_formation %}
-<section class="core_formation">
-    <h2 class="section-titile"> Complementary formation </h2>
+<section class="complementary_formation">
+    <h2 class="section-title"> Complementary formation </h2>
     <ul class="education-list">
         {% for education_item in cv_data.complementary_formation %}
         {% if education_item.course %}

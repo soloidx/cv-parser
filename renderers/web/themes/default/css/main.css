@@ -1,3 +1,341 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;800&family=Trirong&display=swap");
+
 body {
-    background-color: black;
+}
+
+.divider {
+  position: relative;
+  margin-top: 90px;
+  height: 1px;
+}
+
+.div-transparent:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    rgba(25, 93, 158, 1),
+    transparent
+  );
+}
+
+header {
+  height: 90vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
+  min-height: 450px;
+  background-color: rgba(17, 42, 75, 1);
+  color: white;
+}
+
+header h1 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  font-size: 3.5em;
+}
+
+header h3 {
+  font-family: "Raleway", sans-serif;
+  font-style: italic;
+  font-size: 2em;
+  margin-top: 10px;
+}
+
+header .headline {
+  font-family: "Trirong", serif;
+  font-style: italic;
+  font-size: 1.3em;
+  margin: 10px 0;
+}
+
+header > address > div {
+  margin: 5px 0;
+}
+
+header a {
+  color: rgba(200, 200, 200, 1);
+}
+
+header div.photo {
+  display: inline-block;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid rgba(25, 93, 158, 1);
+}
+
+header div.photo img {
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
+
+h2.section-title {
+  text-align: center;
+  color: rgba(25, 93, 158, 1);
+  font-size: 2.2em;
+  font-family: "Raleway", sans-serif;
+}
+
+ul.experience-list {
+  text-align: center;
+  list-style-type: none;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+ul.experience-list:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+ul.experience-list > li:nth-child(odd) {
+  margin-bottom: 8px;
+  margin-right: 20px;
+  margin-left: -4px;
+  width: 50%;
+  float: left;
+  border-right: 8px dotted rgba(60, 150, 236, 1);
+}
+
+ul.experience-list > li:nth-child(odd) > div {
+  margin-right: 10px;
+}
+
+ul.experience-list > li:nth-child(even) {
+  margin-left: 20px;
+  margin-right: -4px;
+  margin-bottom: 8px;
+  width: 50%;
+  float: right;
+  border-left: 8px dotted rgba(60, 150, 236, 1);
+}
+
+ul.experience-list > li:nth-child(even) > div {
+  margin-left: 10px;
+}
+
+ul.experience-list > li:nth-child(even) > a {
+  margin-left: 10px;
+}
+
+li.work {
+  font-family: "Trirong", serif;
+}
+
+li.work > .date {
+  font-size: 1.8em;
+  color: rgba(60, 150, 236, 1);
+}
+
+li.work > .title {
+  font-size: 1.4em;
+  color: rgba(25, 93, 158, 1);
+}
+
+.experience-list div.project {
+  font-family: "Raleway", sans-serif;
+  text-align: left;
+}
+
+.experience-list div.project > .title {
+  font-weight: bold;
+}
+
+.experience-list div.project ul {
+  list-style-type: none;
+}
+
+.experience-list div.project li {
+  margin-top: 10px;
+}
+
+li.project-item > .title {
+  color: rgba(25, 93, 158, 1);
+}
+
+li.project-item > .platform {
+  color: rgba(17, 42, 75, 1);
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.core_formation {
+  text-align: center;
+}
+
+.core_formation ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.core_formation .date {
+  font-size: 1.8em;
+  color: rgba(60, 150, 236, 1);
+}
+
+.core_formation .title {
+  font-size: 1.4em;
+  color: rgba(25, 93, 158, 1);
+}
+
+.core_formation .institution {
+  color: rgba(17, 42, 75, 1);
+  font-style: italic;
+  font-weight: lighter;
+  font-family: "Raleway", sans-serif;
+}
+
+.core_formation .location {
+  font-style: italic;
+  font-weight: lighter;
+  font-family: "Trirong", serif;
+}
+
+.complementary_formation ul {
+  list-style: none;
+}
+
+.complementary_formation ul li {
+  margin-bottom: 20px;
+}
+
+.complementary_formation .date {
+  font-size: 1.8em;
+  color: rgba(60, 150, 236, 1);
+}
+
+.complementary_formation .title {
+  font-size: 1.4em;
+  color: rgba(25, 93, 158, 1);
+}
+
+.complementary_formation .institution {
+  color: rgba(17, 42, 75, 1);
+  font-style: italic;
+  font-weight: lighter;
+  font-family: "Raleway", sans-serif;
+}
+
+.complementary_formation .location {
+  font-style: italic;
+  font-weight: lighter;
+  font-family: "Trirong", serif;
+}
+
+.languages ul {
+  list-style: none;
+}
+
+.languages ul li {
+  color: rgba(60, 150, 236, 1);
+  font-size: 1.4em;
+  font-family: "Raleway", sans-serif;
+}
+
+.languages ul li span {
+  color: rgba(17, 42, 75, 1);
+  font-size: 0.9em;
+}
+
+.skills ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  flex-flow: row wrap;
+  align-content: stretch;
+}
+
+.skills > ul > li {
+  display: inline-flex;
+  width: 20%;
+  min-width: 200px;
+}
+
+.skill-item {
+  list-style: none;
+  flex-flow: column wrap;
+  margin-bottom: 20px;
+}
+
+.skill-item .name {
+  color: rgba(60, 150, 236, 1);
+  font-family: "Raleway", sans-serif;
+  font-size: 1.3em;
+}
+
+.skill-item ul {
+  font-family: "Trirong", serif;
+}
+
+.hobbies > ul,
+.events > ul {
+  list-style: none;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.2em;
+}
+
+.hobbies li,
+.events li {
+  margin-bottom: 20px;
+}
+
+.references {
+  margin-bottom: 100px;
+}
+
+.references ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  flex-flow: row wrap;
+  align-content: stretch;
+}
+
+.references > ul > li {
+  display: inline-flex;
+  width: 28%;
+  min-width: 200px;
+  flex-flow: column wrap;
+  margin-bottom: 50px;
+}
+
+.reference-list .name {
+  color: rgba(60, 150, 236, 1);
+  font-family: "Raleway", sans-serif;
+  font-size: 1.3em;
+}
+
+.reference-list .title {
+  color: rgba(17, 42, 75, 1);
+  font-family: "Trirong", serif;
+}
+
+@media (max-width: 900px) {
+  ul.experience-list > li:nth-child(odd) {
+    padding-top: 30px;
+    width: 90%;
+  }
+
+  ul.experience-list > li:nth-child(even) {
+    padding-top: 30px;
+    width: 90%;
+    float: left;
+    margin-right: 20px;
+    margin-left: -4px;
+    border-right: 8px dotted rgba(60, 150, 236, 1);
+    border-left: none;
+  }
 }
