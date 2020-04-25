@@ -17,8 +17,8 @@ let animation_engine = (function () {
     header_timeline.from("header>div.photo", { opacity: 0, duration: 2 });
     header_timeline.from("header>h1", { opacity: 0, y: 20, duration: 1 }, 1);
     header_timeline.from("header>h3", { opacity: 0, y: 20, duration: 1 }, 1.2);
-    header_timeline.from("header>.headline", { opacity: 0, duration: 1 });
-    header_timeline.from("header>address", { opacity: 0, duration: 2 });
+    header_timeline.from("header>.headline", { opacity: 0, duration: 1 }, "-=0.5");
+    header_timeline.from("header>address", { opacity: 0, duration: 2 }, "-=0.5");
   };
 
   let initialize_experiences = function () {

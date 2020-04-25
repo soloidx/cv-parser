@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "60860936a6803e64d9d02ca34633c95c811cb19fe37bb52ff267eb31945a62dd"
+            "sha256": "63ac6dd5e94fcdcd8582c955fd29c5f84f38afc12d6dd22ec8784352e712f82d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "fpdf": {
+            "hashes": [
+                "sha256:125840783289e7d12552b1e86ab692c37322e7a65b96a99e0ea86cca041b6779"
+            ],
+            "index": "pypi",
+            "version": "==1.7.2"
+        },
         "jinja2": {
             "hashes": [
                 "sha256:89aab215427ef59c34ad58735269eb58b1a5808103067f7bb9d5836c651b3bb0",

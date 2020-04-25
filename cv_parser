@@ -6,7 +6,8 @@ import logging
 import sys
 import yaml
 
-from renderers.web import render
+from renderers.pdf import render as pdf_render
+from renderers.web import render as web_render
 
 
 def create_arg_parser() -> argparse.ArgumentParser:
@@ -22,7 +23,8 @@ def cv_parse_file(filename: str):
     try:
         with open(filename) as f:
             cv_stucture = yaml.load(f, Loader=yaml.Loader)
-            render(cv_stucture)
+            pdf_render(cv_stucture)
+            web_render(cv_stucture)
 
     except FileNotFoundError:
         logging.error('The filename %s does not exist', filename)
