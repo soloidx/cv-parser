@@ -1,7 +1,10 @@
+from PIL import Image, ImageDraw
 from typing import Dict
 import pathlib
 
 from fpdf import FPDF
+
+RIGHT_TOP_MARGIN = 20
 
 RESOURCES_FOLDER = pathlib.Path(__file__).parent.joinpath(
     'resources').absolute()
@@ -75,7 +78,7 @@ def insert_project_item(pdf, project):
         pdf.set_text_color(25, 93, 158)
         pdf.cell(0, 0, project.get('url'))
         pdf.set_text_color(0, 0, 0)
-    pdf.ln(8)
+    pdf.ln(5)
 
 
 def save_to_disk(pdf_obj):
@@ -87,29 +90,91 @@ def save_to_disk(pdf_obj):
     pdf_obj.output(pathlib.Path(output_dir).joinpath(filename).absolute(), 'F')
 
 
+def check_page_break(pdf):
+    offset = 250
+    current_y = pdf.get_y()
+    if current_y > offset:
+        pdf.add_page()
+
+
+def render_image(pdf, personal_info):
+    filename = personal_info.get('picture')
+    if filename is None:
+        return ''
+
+    im = Image.open(filename)
+    im_w, im_h = im.size
+    min_s = min(im.size)
+
+    im = im.crop(((im_w - min_s) // 2, (im_h - min_s) // 2,
+                  (im_w + min_s) // 2, (im_h + min_s) // 2))
+
+    offset = 10
+
+    mask = Image.new('L', im.size, 0)
+
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((offset, offset, im.size[0] - offset, im.size[1] - offset),
+                 fill=255)
+
+    im.putalpha(mask)
+    new_filename = filename.split('.')[:-1]
+    new_filename = '_'.join(new_filename)
+    new_filename = f'{new_filename}_rendered.png'
+    im.save(new_filename, quality=95)
+
+    return new_filename
+
+
 def render_header(pdf, data):
-    pdf.set_fill_color(17, 42, 75)
-    pdf.rect(140, 0, 70, 297, 'F')
+    image_filename = render_image(pdf, data.get('personal_info', {}))
+
+    pdf.set_draw_color(60, 150, 236)
+    if image_filename:
+        pdf.image(image_filename, pdf.get_x() + 1, pdf.get_y() + 1, 30, 30)
+        pdf.set_line_width(1)
+        pdf.ellipse(pdf.get_x(), pdf.get_y(), 32, 32)
+        pdf.set_left_margin(45)
+        pdf.ln(5)
+        im = pathlib.Path(image_filename)
+        im.unlink()
 
     pdf.set_font('pt_sans', '', 24)
     full_name = f'%s %s' % (data['personal_info']['first_name'],
                             data['personal_info']['last_name'])
-    pdf.cell(40, 10, full_name)
+    pdf.cell(0, 10, full_name)
     pdf.ln()
     pdf.set_font('pt_sans', '', 18)
-    pdf.cell(40, 10, data['personal_info']['title'])
+    pdf.set_text_color(150, 150, 150)
+    pdf.cell(0, 10, data['personal_info']['title'])
+    pdf.set_text_color(0, 0, 0)
 
+    line_arg = [10, pdf.get_y() + 10, 120, 0.7, 'F']
+    if image_filename:
+        pdf.ln(8)
+        line_arg[0] = 46
+        line_arg[2] = 84
+
+    pdf.set_fill_color(60, 150, 236)
+    pdf.rect(*line_arg)
+
+    pdf.set_left_margin(10)
     insert_section_title(pdf, 'Profile:')
 
     pdf.set_font('questrial', '', 11)
-    pdf.cell(40, 10, data['personal_info']['headline'])
+    pdf.multi_cell(120, 4, data['personal_info']['headline'])
+
+    pdf.set_fill_color(17, 42, 75)
+    pdf.rect(140, 0, 70, 297, 'F')
 
 
 def render_experience(pdf, data):
+    check_page_break(pdf)
     insert_section_title(pdf, 'Employment History:')
 
     works = [x.get('work') for x in data['professional_experience']]
     for work in works:
+        check_page_break(pdf)
         insert_section_subtitile(pdf, work.get('job_title'))
         pdf.ln(2)
         pdf.set_font('pt_sans', 'I', 11)
@@ -127,12 +192,14 @@ def render_experience(pdf, data):
         projects = [x.get('project') for x in projects]
 
         if projects:
+            check_page_break(pdf)
             insert_3_level(pdf, 'Projects:')
             pdf.ln(6)
 
             pdf.set_left_margin(15)
             pdf.set_right_margin(80)
             for project in projects:
+                check_page_break(pdf)
                 insert_project_item(pdf, project)
             pdf.set_left_margin(10)
 
@@ -141,7 +208,6 @@ def render_core_formation(pdf, formation):
     pdf.set_left_margin(10)
 
     insert_section_title(pdf, 'Education:')
-    pdf.ln(10)
 
     if pdf.page_no() > 1:
         pdf.set_right_margin(10)
@@ -172,7 +238,6 @@ def render_core_formation(pdf, formation):
             pdf.cell(0, 0, course.get('title'), align='C')
 
         pdf.set_text_color(0, 0, 0)
-        pdf.ln(10)
 
     pdf.set_text_color(0, 0, 0)
 
@@ -181,7 +246,6 @@ def render_complementary_formation(pdf, formation):
     pdf.set_left_margin(10)
 
     insert_section_title(pdf, 'Complementary Formation:')
-    pdf.ln(10)
 
     if pdf.page_no() > 1:
         pdf.set_right_margin(10)
@@ -216,7 +280,6 @@ def render_hobbies(pdf, hobbies):
     pdf.set_left_margin(10)
 
     insert_section_title(pdf, 'Hobbies:')
-    pdf.ln(10)
 
     if pdf.page_no() > 1:
         pdf.set_right_margin(10)
@@ -239,7 +302,6 @@ def render_hobbies(pdf, hobbies):
 
 
 def render_events(pdf, events):
-    pdf.set_left_margin(10)
 
     insert_section_title(pdf, 'Events: ')
     pdf.ln(10)
@@ -259,8 +321,8 @@ def render_events(pdf, events):
 
 
 def render_references(pdf, references):
-    print(references)
     pdf.set_left_margin(10)
+    check_page_break(pdf)
 
     insert_section_title(pdf, 'References: ')
     pdf.ln(10)
@@ -307,13 +369,99 @@ def render_references(pdf, references):
             pdf.ln(4)
 
 
+def render_languages(pdf, languages):
+    global RIGHT_TOP_MARGIN
+    previous_y = pdf.get_y()
+
+    pdf.set_left_margin(150)
+    pdf.set_right_margin(10)
+    pdf.set_y(RIGHT_TOP_MARGIN)
+    pdf.set_font('questrial', '', 11)
+    pdf.set_text_color(60, 150, 236)
+    pdf.cell(50, 0, 'Languages:', align='C')
+    pdf.ln(10)
+
+    c_y = pdf.get_y()
+    cont = 0
+
+    for language in languages:
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font('pt_sans', '', 11)
+        pdf.cell(25, 0, language.get('name'), align='C')
+        pdf.ln(5)
+
+        pdf.set_text_color(150, 150, 150)
+        pdf.set_font('pt_sans', 'I', 10)
+        pdf.cell(25, 0, language.get('level'), align='C')
+        pdf.ln(6)
+
+        cont += 1
+
+        if cont % 2 == 0:
+            pdf.set_left_margin(150)
+            c_y = pdf.get_y()
+        else:
+            pdf.set_left_margin(175)
+            pdf.set_y(c_y)
+
+    pdf.ln(10)
+
+    RIGHT_TOP_MARGIN = pdf.get_y()
+
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_y(previous_y)
+    pdf.set_left_margin(10)
+    pdf.set_right_margin(10)
+
+
+def render_skills(pdf, skills):
+    global RIGHT_TOP_MARGIN
+    previous_y = pdf.get_y()
+
+    pdf.set_left_margin(150)
+    pdf.set_right_margin(10)
+    pdf.set_y(RIGHT_TOP_MARGIN)
+    pdf.set_font('questrial', '', 11)
+    pdf.set_text_color(60, 150, 236)
+    pdf.cell(50, 0, 'Skills:', align='C')
+    pdf.ln(10)
+
+    for skill in skills:
+        pdf.set_text_color(150, 150, 150)
+        pdf.set_font('pt_sans', 'I', 10)
+        pdf.cell(50, 0, skill.get('name'), align='L')
+        pdf.ln(3)
+
+        text = ', '.join(skill.get('list', []))
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font('pt_sans', '', 9)
+        pdf.multi_cell(50, 5, text, align='C')
+        pdf.ln(7)
+
+    RIGHT_TOP_MARGIN = pdf.get_y()
+
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_y(previous_y)
+    pdf.set_left_margin(10)
+    pdf.set_right_margin(10)
+
+
 def render(cv_structure: Dict):
     pdf = FPDF('P', 'mm', 'A4')
     add_fonts(pdf)
+    pdf.set_top_margin(20)
     pdf.add_page()
 
     render_header(pdf, cv_structure)
-    render_experience(pdf, cv_structure)
+
+    if 'languages' in cv_structure.keys():
+        render_languages(pdf, cv_structure['languages'])
+
+    if 'skills' in cv_structure.keys():
+        render_skills(pdf, cv_structure['skills'])
+
+    if 'professional_experience' in cv_structure.keys():
+        render_experience(pdf, cv_structure)
 
     if 'core_formation' in cv_structure.keys():
         render_core_formation(pdf, cv_structure['core_formation'])
@@ -331,5 +479,4 @@ def render(cv_structure: Dict):
     if 'references' in cv_structure.keys():
         render_references(pdf, cv_structure['references'])
 
-    print(cv_structure.keys())
     save_to_disk(pdf)

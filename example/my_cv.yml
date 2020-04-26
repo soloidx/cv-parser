@@ -1,0 +1,107 @@
+cv_file_version: 1
+
+personal_info:
+  first_name: John
+  last_name: Doe
+  title: Software developer
+  headline: A simple softwarwe developer with a long experience with python and
+    other technologies such as C, C++, Java and HTML
+  address: Baker Street 123
+  phone: 5050505
+  email: john@doe.com
+  webpage: https://github.com/soloidx/cv-parser
+  picture: me.jpg
+
+core_formation:
+  - course:
+      title: "Bsc. Computer Science"
+      date: 2001 - 2005
+      institution: University name
+      location: London, UK
+
+complementary_formation:
+  - course:
+      title: "Course: Machine learning"
+      date: 2009
+      institution: Extension Center of University 1
+  - course:
+      title: "Course: Blockchain architecture"
+      date: 2008
+      institution: Extension Center of University 2
+
+professional_experience:
+  - work:
+      date: Jul. 2015. - present
+      job_title: Software developer
+      place: Workplace number 1
+      website: https://work-foo.com/
+      projects:
+        - project:
+            title: Testing automation
+            description: Writing and execution of functional and integration
+              tests with a Ci system and other monitors.
+            platform: Javascropt, Protractor, Jasmine, PHP, CircleCI, Code
+              Climate, Docker, NodeJS.
+
+        - project:
+            title: Testing automation
+            description: Writing and execution of integration tests over a
+              flegacy API with a CI system.
+            platform: Golang, Ginkgo, Docker, PHP, CircleCI, Git
+
+  - work:
+      date: Nov. 2014. - Jul 2015
+      job_title: Web developer
+      place: Workplace number 2
+      website: http://www.work-bar.com
+      projects:
+        - project:
+            title: Job posting application
+            description: Python web application.
+            platform: Django/Python PostreSQL, Redis, RabbitMQ, Celery, Git, CircleCI.
+
+        - project:
+            title: Site for an online document search
+            description: Site for search and tagging of articles in agreements
+            platform: Html5/Javascript, Drupal 7, PHP, AngularJS, ExpressJS, NodeJs, Git
+            url: https://www.project-bar.org/
+
+languages:
+  - name: Spanish
+    level: Native
+  - name: English
+    level: Advanced
+
+skills:
+  - name: Operating systems
+    list:
+      - GNU/Linux
+      - Windows
+      - MacOS
+  - name: Programming / markup languages
+    list:
+      - Python
+      - Javascript
+      - Golang
+      - Objective-C
+      - CSS
+      - HTML
+
+hobbies:
+  - name: Audio and video
+    description: Editing, mixing basic audio and video
+
+events:
+  - "Pycon US - Awesome speak 1 (speaker)"
+  - "Open Day foo - University 2 (speaker)"
+
+references:
+  - name: Great manager.
+    title: Country manager of Foo industries
+    phone: +5050505
+  - name: Fellow Developer 1.
+    title: Freelance developer
+    email: dev-1@foo.com
+  - name: Fellow Developer 2.
+    title: Web developer
+    email: dev-2@bar.pe

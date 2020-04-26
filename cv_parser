@@ -3,28 +3,53 @@
 
 import argparse
 import logging
+import pathlib
+import shutil
 import sys
+
 import yaml
 
 from renderers.pdf import render as pdf_render
 from renderers.web import render as web_render
+
+EXAMPLES_FOLDER = pathlib.Path(__file__).parent.joinpath('example').absolute()
 
 
 def create_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description='Create CV files from a yaml file')
 
-    parser.add_argument('filename', type=str, help='Name of the yaml source')
+    parser.add_argument('filename',
+                        type=str,
+                        help=''.join([
+                            'Name of the yaml source, you can use ',
+                            '"generate" to create an example'
+                        ]))
+    parser.add_argument('--render-type',
+                        dest='render_type',
+                        choices=['web', 'pdf', 'all'],
+                        type=str,
+                        default='all',
+                        help='Type of output (web, pdf, all)')
 
     return parser
 
 
-def cv_parse_file(filename: str):
+def generate_example_file():
+    print('Creating a "my_cv.yml" file...')
+    shutil.copy(f'{EXAMPLES_FOLDER}/my_cv.yml', '.')
+    shutil.copy(f'{EXAMPLES_FOLDER}/me.jpg', '.')
+
+
+def cv_parse_file(filename: str, render_type: str):
     try:
         with open(filename) as f:
             cv_stucture = yaml.load(f, Loader=yaml.Loader)
-            pdf_render(cv_stucture)
-            web_render(cv_stucture)
+            if render_type in ['web', 'all']:
+                web_render(cv_stucture)
+
+            if render_type in ['pdf', 'all']:
+                pdf_render(cv_stucture)
 
     except FileNotFoundError:
         logging.error('The filename %s does not exist', filename)
@@ -36,7 +61,15 @@ def main():
     args = parser.parse_args()
 
     filename = args.filename
-    cv_parse_file(filename)
+    render_type = args.render_type
+    if filename == 'generate':
+        generate_example_file()
+        sys.exit()
+    try:
+        cv_parse_file(filename, render_type)
+    except TypeError as e:
+        print(e)
+        sys.exit(-1)
 
 
 if __name__ == '__main__':

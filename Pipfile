@@ -4,11 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+setuptools = "*"
 
 [packages]
 pyyaml = "*"
 jinja2 = "*"
 fpdf = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
