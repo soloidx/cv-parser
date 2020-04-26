@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include example/me.jpg
+include example/my_cv.yml
+recursive-include renderers/pdf/resources *.ttf
+recursive-include renderers/web/templates *
+recursive-include renderers/web/themes *

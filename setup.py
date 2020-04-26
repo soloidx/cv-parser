@@ -23,6 +23,6 @@ setup(
         "Source Code": "https://github.com/soloidx/cv-parser",
     },
     classifiers=[
-        "License :: OSI Approved :: Python Software Foundation License"
+        "License :: MIT"
     ]
 )
