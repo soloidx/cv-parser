@@ -1,7 +1,11 @@
 from setuptools import setup, find_packages
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name="cv_parser",
-    version="0.1",
+    version="0.3",
     packages=find_packages(),
     scripts=["cv_parser"],
     install_requires=[
@@ -16,6 +20,8 @@ setup(
     author="Ider Delzo",
     author_email="soloidx@gmail.com",
     description="This package parses a Curriculum vitae yaml file and generates a pdf and web files",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     keywords="resume cv, curriculum vitae",
     url="https://github.com/soloidx/cv-parser",
     project_urls={
@@ -23,6 +29,6 @@ setup(
         "Source Code": "https://github.com/soloidx/cv-parser",
     },
     classifiers=[
-        "License :: MIT"
+        "License :: OSI Approved :: MIT License"
     ]
 )
