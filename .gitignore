@@ -239,5 +239,6 @@ $RECYCLE.BIN/
 output/
 example.yaml
 me.jpg
-my_cv.yml
+*.yml
 !/example/me.jpg
+!/example/my_cv.yml

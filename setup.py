@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="cv_parser",
-    version="0.3",
+    version="0.5",
     packages=find_packages(),
     scripts=["cv_parser"],
     install_requires=[
@@ -15,6 +15,7 @@ setup(
         "example": ["*.yml", "*.jpg"],
         "renderers": ["*.ttf", "*.html", "*.css", "*.js"],
     },
+    include_package_data=True,
 
     # metadata to display on PyPI
     author="Ider Delzo",
