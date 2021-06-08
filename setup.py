@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     scripts=["cv_parser"],
     install_requires=[
-        "pyyaml==5.3.1", "jinja2==2.11.2", "fpdf==1.7.2", "pillow==7.1.1"
+        "pyyaml==5.3.1", "jinja2==2.11.2", "fpdf==1.7.2", "pillow==8.2.0"
     ],
     package_data={
         "example": ["*.yml", "*.jpg"],
